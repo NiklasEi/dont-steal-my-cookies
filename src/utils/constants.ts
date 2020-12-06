@@ -23,21 +23,27 @@ export const assetKeys = {
   spatula: 'spatula',
   cookieCounter: 'cookie-counter',
   angryGingerbread: 'angry-ginger-bread',
+  happyGingerbread: 'happy-ginger-bread',
   menu: {
-    playButton: 'play-button'
+    playButton: 'play-button',
+    repeat: 'repeat'
   },
   cookies: {
     chocolateChip: 'chocolate-chips',
     macaroon: 'macaroon',
     softCookie: 'soft-cookie',
     crescent: 'crescent'
+  },
+  sounds: {
+    hit: 'hit-sound',
+    crunchOne: 'crunch-one',
+    crunchTwo: 'crunch-two'
   }
 };
 
 export const events = {
   updateScore: 'update-score',
-  lost: 'lost',
-  won: 'won'
+  gameOver: 'game-over'
 };
 
 export const dimensions = {

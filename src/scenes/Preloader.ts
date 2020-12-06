@@ -29,9 +29,15 @@ export default class Preloader extends Phaser.Scene {
     this.load.image(assetKeys.table, 'assets/table.png');
     this.load.image(assetKeys.spatula, 'assets/spatula.png');
     this.load.image(assetKeys.angryGingerbread, 'assets/angryGingerbread.png');
+    this.load.image(assetKeys.happyGingerbread, 'assets/happyGingerbread.png');
+
+    this.load.audio(assetKeys.sounds.crunchOne, 'assets/sounds/crunch.mp3');
+    this.load.audio(assetKeys.sounds.crunchTwo, 'assets/sounds/crunch2.mp3');
+    this.load.audio(assetKeys.sounds.hit, 'assets/sounds/hit.mp3');
 
     // menu
     this.load.image(assetKeys.menu.playButton, 'assets/playButton.png');
+    this.load.image(assetKeys.menu.repeat, 'assets/repeat.png');
 
     // cookies
     this.load.image(assetKeys.cookies.chocolateChip, 'assets/cookies/chocolateChip.png');

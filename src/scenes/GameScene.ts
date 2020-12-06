@@ -15,21 +15,23 @@ export class GameScene extends Phaser.Scene {
   private cookieToGive: string = assetKeys.cookies.chocolateChip;
   private handTween?: Phaser.Tweens.Tween;
   private readonly cookies: Phaser.GameObjects.Image[] = [];
-  private score = 5;
-  private won = false;
-  private lost = false;
+  private score = 0;
+  private readonly wonAt = 25;
 
   constructor() {
     super(scenes.gameScene);
   }
 
-  create() {
-    this.scene.run(scenes.gameHud, { score: this.score });
+  init() {
+    this.score = 5;
+    this.hand = undefined;
+    this.cookieHand = undefined;
     const background = this.add.image(dimensions.width / 2, dimensions.height / 2, assetKeys.table);
     background.scale = 0.5;
     this.spatula = this.add.image(dimensions.width / 2, dimensions.height / 2, assetKeys.spatula);
     this.spatula.alpha = 0;
     this.spatula.setRotation(Math.PI / 2);
+    this.scene.run(scenes.gameHud, { score: this.score });
 
     for (let i = 0; i < this.score; i++) {
       this.selectRandomCookieHand();
@@ -42,9 +44,6 @@ export class GameScene extends Phaser.Scene {
   }
 
   update() {
-    if (this.won || this.lost) {
-      return;
-    }
     if (this.hand === undefined && Math.random() > 0.96) {
       const startPoint = this.getRandomStartPoint();
       const angle = this.plate.clone().subtract(startPoint).angle();
@@ -68,9 +67,14 @@ export class GameScene extends Phaser.Scene {
         // eslint-disable-next-line no-console
         onComplete: () => {
           this.score -= 1;
+          if (Math.random() < 0.5) {
+            this.sound.play(assetKeys.sounds.crunchOne);
+          } else {
+            this.sound.play(assetKeys.sounds.crunchTwo);
+          }
           if (this.score < 1) {
-            this.lost = true;
-            sceneEvents.emit(events.lost, this);
+            sceneEvents.emit(events.gameOver);
+            this.scene.start(scenes.mainMenu, { lost: true });
           }
           this.takeCookie();
           sceneEvents.emit(events.updateScore, this.score);
@@ -102,9 +106,9 @@ export class GameScene extends Phaser.Scene {
         // eslint-disable-next-line no-console
         onComplete: () => {
           this.score += 1;
-          if (this.score >= 50) {
-            this.won = true;
-            sceneEvents.emit(events.won, this);
+          if (this.score >= this.wonAt) {
+            sceneEvents.emit(events.gameOver);
+            this.scene.start(scenes.mainMenu, { won: true });
           }
           this.displayCookieToGive();
           sceneEvents.emit(events.updateScore, this.score);
@@ -132,6 +136,7 @@ export class GameScene extends Phaser.Scene {
     this.spatulaTween?.stop();
     this.spatula.setPosition(x, y);
     this.spatula.alpha = 1;
+    this.sound.play(assetKeys.sounds.hit);
     this.spatulaTween = this.add.tween({ targets: this.spatula, alpha: 0, duration: 400 });
   }
 
