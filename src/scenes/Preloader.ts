@@ -7,11 +7,15 @@ export default class Preloader extends Phaser.Scene {
   }
 
   preload() {
-    // load assets
-    this.load.image(assetKeys.tiles.floor, 'assets/floor.png');
+    // game
+    this.load.image(assetKeys.hand, 'assets/hand.png');
+    this.load.image(assetKeys.table, 'assets/table.png');
+
+    // menu
+    this.load.image(assetKeys.menu.playButton, 'assets/playButton.png');
   }
 
   create() {
-    // creating preloader
+    this.scene.start(scenes.mainMenu);
   }
 }

@@ -1,16 +1,20 @@
 import * as Phaser from 'phaser';
-import {scenes} from "../utils/constants";
+import {assetKeys, scenes} from "../utils/constants";
 
 export class GameScene extends Phaser.Scene {
   constructor() {
     super(scenes.gameScene);
   }
 
-  update() {
-    // updating game scene
+  create() {
+    this.scene.run(scenes.gameHud);
+    this.add.image(
+        this.game.renderer.width / 2,
+        this.game.renderer.height / 2,
+        assetKeys.table)
   }
 
-  create() {
-    // creating game scene
+  update() {
+    // updating game scene
   }
 }

@@ -1,12 +1,14 @@
 export const assetKeys = {
-  tiles: {
-    floor: 'floor'
+  hand: 'hand',
+  table: 'table',
+  menu: {
+    playButton: 'play-button'
   }
 }
 
 export const dimensions = {
-  width: 1200,
-  height: 900
+  width: 800,
+  height: 600
 };
 
 export const scenes = {
