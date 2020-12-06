@@ -1,7 +1,7 @@
 {
-  "name": "phaser-starter",
+  "name": "dont-steal-my-cookies",
   "version": "1.0.0",
-  "description": "Starter project for the Phaser HTML5 game engine",
+  "description": "Small christmas themed HML5 game",
   "scripts": {
     "build": "webpack",
     "dev": "webpack-dev-server",
@@ -15,9 +15,9 @@
   "author": "Niklas Eicker <git@nikl.me>",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/NiklasEi/phaser-starter/issues"
+    "url": "https://github.com/NiklasEi/dont-steal-my-cookies/issues"
   },
-  "homepage": "https://github.com/NiklasEi/phaser-starter#readme",
+  "homepage": "https://github.com/NiklasEi/dont-steal-my-cookies#readme",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "4.2.0",
     "@typescript-eslint/parser": "4.2.0",
@@ -36,6 +36,7 @@
     "webpack-dev-server": "3.11.0"
   },
   "dependencies": {
-    "phaser": "3.24.1"
+    "phaser": "3.24.1",
+    "terser-webpack-plugin": "4.2.3"
   }
 }

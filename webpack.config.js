@@ -2,6 +2,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+
 
 module.exports = {
     entry: {
@@ -19,7 +21,8 @@ module.exports = {
         ],
     },
 
-    devtool: 'inline-source-map',
+    // devtool: 'inline-source-map',
+    devtool: false,
 
     resolve: {
         extensions: ['.ts', '.tsx', '.js'],
@@ -36,6 +39,7 @@ module.exports = {
         contentBase: path.resolve(__dirname, 'dist'),
         writeToDisk: true,
         open: true,
+        port: 3000,
     },
 
     plugins: [
@@ -50,12 +54,21 @@ module.exports = {
             ],
         }),
         new webpack.DefinePlugin({
-            'typeof CANVAS_RENDERER': JSON.stringify(true),
+            'typeof CANVAS_RENDERER': JSON.stringify(false),
             'typeof WEBGL_RENDERER': JSON.stringify(true),
         }),
     ],
 
     optimization: {
+        minimize: true,
+        minimizer: [new TerserPlugin({
+            terserOptions: {
+                output: {
+                    comments: false,
+                },
+            },
+            extractComments: false,
+        })],
         splitChunks: {
             cacheGroups: {
                 commons: {
