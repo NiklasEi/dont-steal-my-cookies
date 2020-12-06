@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import {assetKeys, scenes} from '../utils/constants';
+import { assetKeys, scenes } from '../utils/constants';
 
 export default class Preloader extends Phaser.Scene {
   constructor() {
@@ -10,12 +10,14 @@ export default class Preloader extends Phaser.Scene {
     // game
     this.load.image(assetKeys.hand, 'assets/hand.png');
     this.load.image(assetKeys.table, 'assets/table.png');
+    this.load.image(assetKeys.spatula, 'assets/spatula.png');
 
     // menu
     this.load.image(assetKeys.menu.playButton, 'assets/playButton.png');
 
     // cookies
-    this.load.image(assetKeys.cookies.chocolateChip, 'assets/cookies/cookie.png');
+    this.load.image(assetKeys.cookies.chocolateChip, 'assets/cookies/chocolateChip.png');
+    this.load.image(assetKeys.cookies.macaroon, 'assets/cookies/macaroon.png');
   }
 
   create() {

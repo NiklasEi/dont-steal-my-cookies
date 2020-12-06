@@ -1,17 +1,19 @@
 export const assetKeys = {
   hand: 'hand',
   table: 'table',
+  spatula: 'spatula',
   menu: {
     playButton: 'play-button'
   },
   cookies: {
-    chocolateChip: 'chocolate-chips'
+    chocolateChip: 'chocolate-chips',
+    macaroon: 'macaroon'
   }
-}
+};
 
 export const events = {
   updateScore: 'update-score'
-}
+};
 
 export const dimensions = {
   width: 800,
