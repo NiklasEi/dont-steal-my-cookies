@@ -1,5 +1,15 @@
 export const assetKeys = {
-  hand: 'hand',
+  hands: {
+    whiteHand: "white-hand",
+    coloredNailsHand: "colored-nails-hand",
+    coloredHand: "colored-hand"
+  },
+  cookieHands: {
+    chocolateChip: 'chocolate-chips-hand',
+    macaroon: 'macaroon-hand',
+    softCookie: 'soft-cookie-hand',
+    crescent: 'crescent-hand'
+  },
   table: 'table',
   spatula: 'spatula',
   menu: {
@@ -7,7 +17,9 @@ export const assetKeys = {
   },
   cookies: {
     chocolateChip: 'chocolate-chips',
-    macaroon: 'macaroon'
+    macaroon: 'macaroon',
+    softCookie: 'soft-cookie',
+    crescent: 'crescent'
   }
 };
 
