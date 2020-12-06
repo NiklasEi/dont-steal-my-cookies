@@ -16,13 +16,15 @@ export class GameScene extends Phaser.Scene {
   private handTween?: Phaser.Tweens.Tween;
   private readonly cookies: Phaser.GameObjects.Image[] = [];
   private score = 5;
+  private won = false;
+  private lost = false;
 
   constructor() {
     super(scenes.gameScene);
   }
 
   create() {
-    this.scene.run(scenes.gameHud);
+    this.scene.run(scenes.gameHud, { score: this.score });
     const background = this.add.image(dimensions.width / 2, dimensions.height / 2, assetKeys.table);
     background.scale = 0.5;
     this.spatula = this.add.image(dimensions.width / 2, dimensions.height / 2, assetKeys.spatula);
@@ -40,6 +42,9 @@ export class GameScene extends Phaser.Scene {
   }
 
   update() {
+    if (this.won || this.lost) {
+      return;
+    }
     if (this.hand === undefined && Math.random() > 0.96) {
       const startPoint = this.getRandomStartPoint();
       const angle = this.plate.clone().subtract(startPoint).angle();
@@ -63,6 +68,10 @@ export class GameScene extends Phaser.Scene {
         // eslint-disable-next-line no-console
         onComplete: () => {
           this.score -= 1;
+          if (this.score < 1) {
+            this.lost = true;
+            sceneEvents.emit(events.lost, this);
+          }
           this.takeCookie();
           sceneEvents.emit(events.updateScore, this.score);
           this.hand?.destroy();
@@ -70,7 +79,7 @@ export class GameScene extends Phaser.Scene {
         }
       });
     }
-    if (this.cookieHand === undefined && Math.random() > 0.99) {
+    if (this.cookieHand === undefined && Math.random() > 0.995) {
       const startPoint = this.getRandomStartPoint();
       const angle = this.plate.clone().subtract(startPoint).angle();
       const offset = this.handOffset.clone().rotate(angle);
@@ -93,6 +102,10 @@ export class GameScene extends Phaser.Scene {
         // eslint-disable-next-line no-console
         onComplete: () => {
           this.score += 1;
+          if (this.score >= 50) {
+            this.won = true;
+            sceneEvents.emit(events.won, this);
+          }
           this.displayCookieToGive();
           sceneEvents.emit(events.updateScore, this.score);
           this.cookieHand?.destroy();
@@ -135,18 +148,43 @@ export class GameScene extends Phaser.Scene {
 
   private selectRandomCookieHand() {
     const rand = Math.random();
+    const randomColor = Math.random();
     if (rand < 0.25) {
       this.cookieToGive = assetKeys.cookies.softCookie;
-      return assetKeys.cookieHands.softCookie;
+      if (randomColor < 0.33) {
+        return assetKeys.cookieHands.coloredSoftCookie;
+      } else if (randomColor < 0.66) {
+        return assetKeys.cookieHands.orangeSoftCookie;
+      } else {
+        return assetKeys.cookieHands.whiteSoftCookie;
+      }
     } else if (rand < 0.5) {
       this.cookieToGive = assetKeys.cookies.chocolateChip;
-      return assetKeys.cookieHands.chocolateChip;
+      if (randomColor < 0.33) {
+        return assetKeys.cookieHands.coloredChocolateChip;
+      } else if (randomColor < 0.66) {
+        return assetKeys.cookieHands.orangeChocolateChip;
+      } else {
+        return assetKeys.cookieHands.whiteChocolateChip;
+      }
     } else if (rand < 0.75) {
       this.cookieToGive = assetKeys.cookies.macaroon;
-      return assetKeys.cookieHands.macaroon;
+      if (randomColor < 0.33) {
+        return assetKeys.cookieHands.coloredMacaroon;
+      } else if (randomColor < 0.66) {
+        return assetKeys.cookieHands.orangeMacaroon;
+      } else {
+        return assetKeys.cookieHands.whiteMacaroon;
+      }
     } else {
       this.cookieToGive = assetKeys.cookies.crescent;
-      return assetKeys.cookieHands.crescent;
+      if (randomColor < 0.33) {
+        return assetKeys.cookieHands.coloredCrescent;
+      } else if (randomColor < 0.66) {
+        return assetKeys.cookieHands.orangeCrescent;
+      } else {
+        return assetKeys.cookieHands.whiteCrescent;
+      }
     }
   }
 
