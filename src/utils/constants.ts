@@ -1,8 +1,8 @@
 export const assetKeys = {
   hands: {
-    whiteHand: "white-hand",
-    coloredNailsHand: "colored-nails-hand",
-    coloredHand: "colored-hand"
+    whiteHand: 'white-hand',
+    coloredNailsHand: 'colored-nails-hand',
+    coloredHand: 'colored-hand'
   },
   cookieHands: {
     chocolateChip: 'chocolate-chips-hand',

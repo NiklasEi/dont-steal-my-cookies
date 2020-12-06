@@ -14,7 +14,7 @@ export class GameScene extends Phaser.Scene {
   private cookieHandTween?: Phaser.Tweens.Tween;
   private cookieToGive: string = assetKeys.cookies.chocolateChip;
   private handTween?: Phaser.Tweens.Tween;
-  private cookies: Phaser.GameObjects.Image[] = [];
+  private readonly cookies: Phaser.GameObjects.Image[] = [];
   private score = 5;
 
   constructor() {
@@ -160,12 +160,12 @@ export class GameScene extends Phaser.Scene {
     const position = this.getRandomPositionOnPlate();
     const cookie = this.add.image(position.x, position.y, this.cookieToGive);
     cookie.scale = 0.25;
-    cookie.setRotation(Math.random() * 2 * Math.PI)
+    cookie.setRotation(Math.random() * 2 * Math.PI);
     this.cookies.push(cookie);
   }
 
   private getRandomPositionOnPlate(): Vector2 {
-    const vector = new Vector2(10, 0).rotate(Math.random() * 2 * Math.PI).scale(Math.random() + 2)
+    const vector = new Vector2(10, 0).rotate(Math.random() * 2 * Math.PI).scale(Math.random() + 2);
     return this.plate.clone().add(vector);
   }
 }
