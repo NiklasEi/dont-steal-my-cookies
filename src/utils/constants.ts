@@ -3,7 +3,14 @@ export const assetKeys = {
   table: 'table',
   menu: {
     playButton: 'play-button'
+  },
+  cookies: {
+    chocolateChip: 'chocolate-chips'
   }
+}
+
+export const events = {
+  updateScore: 'update-score'
 }
 
 export const dimensions = {

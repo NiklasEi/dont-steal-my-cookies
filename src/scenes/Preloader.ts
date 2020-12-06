@@ -13,6 +13,9 @@ export default class Preloader extends Phaser.Scene {
 
     // menu
     this.load.image(assetKeys.menu.playButton, 'assets/playButton.png');
+
+    // cookies
+    this.load.image(assetKeys.cookies.chocolateChip, 'assets/cookies/cookie.png');
   }
 
   create() {
