@@ -48,7 +48,7 @@ export const events = {
 
 export const dimensions = {
   width: 800,
-  height: 600
+  height: 575
 };
 
 export const scenes = {

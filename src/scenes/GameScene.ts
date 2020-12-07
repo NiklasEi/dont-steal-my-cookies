@@ -45,8 +45,19 @@ export class GameScene extends Phaser.Scene {
 
   update() {
     if (this.hand === undefined && Math.random() > 0.96) {
-      const startPoint = this.getRandomStartPoint();
-      const angle = this.plate.clone().subtract(startPoint).angle();
+      let startPoint = this.getRandomStartPoint();
+      let angle = this.plate.clone().subtract(startPoint).angle();
+      if (this.cookieHand !== undefined) {
+        let angleHand = angle < 0 ? angle + 2 * Math.PI : angle;
+        const angleCookieHand =
+          this.cookieHand.rotation < 0 ? this.cookieHand.rotation + 2 * Math.PI : this.cookieHand.rotation;
+
+        while (Math.abs(angleCookieHand - angleHand) < Math.PI / 2) {
+          startPoint = this.getRandomStartPoint();
+          angle = this.plate.clone().subtract(startPoint).angle();
+          angleHand = angle < 0 ? angle + 2 * Math.PI : angle;
+        }
+      }
       const offset = this.handOffset.clone().rotate(angle);
       const dist = this.plate.clone().subtract(startPoint.clone().add(offset));
       this.hand = this.add.image(startPoint.x - offset.x, startPoint.y - offset.y, this.getRandomHandKey());
@@ -84,8 +95,18 @@ export class GameScene extends Phaser.Scene {
       });
     }
     if (this.cookieHand === undefined && Math.random() > 0.995) {
-      const startPoint = this.getRandomStartPoint();
-      const angle = this.plate.clone().subtract(startPoint).angle();
+      let startPoint = this.getRandomStartPoint();
+      let angle = this.plate.clone().subtract(startPoint).angle();
+      if (this.hand !== undefined) {
+        let angleCookieHand = angle < 0 ? angle + 2 * Math.PI : angle;
+        const angleHand = this.hand.rotation < 0 ? this.hand.rotation + 2 * Math.PI : this.hand.rotation;
+
+        while (Math.abs(angleCookieHand - angleHand) < Math.PI / 2) {
+          startPoint = this.getRandomStartPoint();
+          angle = this.plate.clone().subtract(startPoint).angle();
+          angleCookieHand = angle < 0 ? angle + 2 * Math.PI : angle;
+        }
+      }
       const offset = this.handOffset.clone().rotate(angle);
       const dist = this.plate.clone().subtract(startPoint.clone().add(offset));
       this.cookieHand = this.add.image(startPoint.x - offset.x, startPoint.y - offset.y, this.selectRandomCookieHand());
